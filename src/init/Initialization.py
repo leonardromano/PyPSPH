@@ -67,11 +67,11 @@ def read_ic_file():
     Particles = [particle(convert_to_int_position(positions[i], Problem.FacIntToCoord), \
                           velocities[i], entropies[i], i) \
                  for i in range(header["NumPart"])]
-    file.close()
-    print("   Npart: %d \n"%header["NumPart"] + \
-          "   Mpart: %g \n"%Problem.Mpart + \
+    print("   Npart: %d \n"%(header["NumPart"]) + \
+          "   Mpart: %g \n"%(Problem.Mpart) + \
           "   Boxsize:" + str(Problem.Boxsize) + "\n" + \
           "   Periodic:" + str(Problem.Periodic) + "\n\n")
+    file.close()
     t1 = time()
     Problem.Timer["INIT"] += t1-t0
     return Particles, Problem

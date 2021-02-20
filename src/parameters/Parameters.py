@@ -39,8 +39,6 @@ NTimebins   = 16                   #Maximum depth of timestep hierarchy
 ##############################################################################
 #Number of spatial dimensions
 NDIM = 2
-#Determines the domain and boundary
-Problem_Specifier = "Rayleigh-Taylor"
 #SPH parameters
 AdiabaticIndex     = 1.4          #adiabatic Index gamma P~rho^gamma
 Kernel             = "Wendland_C2"      #SPH Kernel function new Kernel options can be defined in Kernel.py

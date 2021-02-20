@@ -55,7 +55,7 @@ def read_ic_file():
     "Read the IC file specifying the problem and the particle data"
     t0 = time()
     Problem = problem()
-    file = h5py.File(ICfile, "r")
+    file = h5py.File(ICfile + ".hdf5", "r")
     header = file["Header"].attrs
     Problem.Mpart = header["Mpart"]
     Problem.BoxSize = header["Boxsize"]

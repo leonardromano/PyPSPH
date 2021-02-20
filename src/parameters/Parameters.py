@@ -18,9 +18,9 @@ before running the simulation with 'run'.
 #General parameters
 ##############################################################################
 #path to IC-file without the .hdf5 tail
-ICfile    = "../ICs/initial_condition"
+ICfile    = "/home/t30/all/ga87reg/Num_seminar/ICs/Rayleigh-Taylor"
 #output directory
-output    = "/home/t30/all/ga87reg/Num_seminar/ICs/"  
+output    = "/home/t30/all/ga87reg/Num_seminar/output/"  
 #Name of scheduling system
 Scheduler = "SGE"
 #Number of timesteps between Snapshots
@@ -46,7 +46,7 @@ AdiabaticIndex     = 1.4          #adiabatic Index gamma P~rho^gamma
 Kernel             = "cubic"      #SPH Kernel function new Kernel options can be defined in Kernel.py
 Viscosity          = 1.           #Viscosity Parameter \alpha
 ViscositySoftening = 0.01         #Softening parameter to prevent blow up of viscosity force
-DESNNGBS = 64                     #Desired number of neighbors
+DESNNGBS = 16                     #Desired number of neighbors
 NNGBSDEV = 1                       #Limit how much the actual number of neighbors may deviate from the desired value
 CourantParameter = 0.3            #Courant parameter
 TimestepLimiter  = 0.01          #Limiter for kinematic timestep

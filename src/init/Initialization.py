@@ -32,7 +32,7 @@ def process(Particles, NgbTree_ref):
 #per particle processing
 
 def guess_hsml(particle, NgbTree):
-    i = particle.ID
+    i = particle.index
     no = NgbTree.Father[i]
     while(10 * DESNNGBS * NgbTree.Mpart > NgbTree.get_nodep(no).Mass):
         p = NgbTree.get_nodep(no).father

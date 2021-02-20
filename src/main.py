@@ -20,7 +20,7 @@ from src.sph.density import update_sph_quantities
 from src.time_integration.timesteps import assign_timestep_classes, \
     get_active_time_bin
 from src.tree.tree import ngbtree, update_Tp
-from src.writing.writing import write_data
+from src.output.output import write_data
 
 def main():
     "This function initializes the simulation and contains the main loop"

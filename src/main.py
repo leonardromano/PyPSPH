@@ -15,7 +15,7 @@ from src.parameters.Parameters import NTimesteps, OutputFrequency, FinalTime
 
 import src.init.Initialization as init
 from src.forces.forceCalculation import force_step
-from src.time_integration.Drift import Kick_and_drift, Kick
+from src.time_integration.Drift import Kick_and_Drift, Kick
 from src.sph.density import update_sph_quantities
 from src.time_integration.timesteps import assign_timestep_classes, \
     get_active_time_bin
@@ -55,7 +55,7 @@ def main():
             print("Current Time: %g, timestep %g"%((i + j) * Dt, dt))
             stdout.flush()
             
-            Particles = Kick_and_drift(Particles, Problem, activeTimeBin, dt)
+            Particles = Kick_and_Drift(Particles, Problem, activeTimeBin, dt)
             
             #update the local clock to the next synchronization point and 
             #determine which particles are active next

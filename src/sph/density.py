@@ -11,7 +11,7 @@ import ray
 from sys import exit
 
 from src.parameters.Constants import NORM_COEFF, MAX_INT, LARGE_NUM
-from src.parameters.Parameters import NDIM, DESNNGBS, NNGBDEV
+from src.parameters.Parameters import NDIM, DESNNGBS, NNGBSDEV
 from src.sph.Kernel import kernel, wendland_bias_correction
 from src.data.int_conversion import get_distance_vector
 from src.data.parallel_utility import get_optimal_load
@@ -39,7 +39,7 @@ def process_finalize(Particles, NgbTree, Left, Right):
         #do some postprocessing on density
         finish_density_update(particle, NgbTree)
         numNgb = NORM_COEFF * particle.Hsml**(NDIM) * particle.Rho / NgbTree.Mpart
-        if abs(numNgb-DESNNGBS) <= NNGBDEV:
+        if abs(numNgb-DESNNGBS) <= NNGBSDEV:
             done.append(particle)
         else:    
             if Left[i] > 0 and Right[i] < LARGE_NUM and Right[i]-Left[i] < 1e-3 * Left[i]:
@@ -193,7 +193,7 @@ def density(Workstack, NgbTree_ref, ahead = False):
 
 def update_bounds(lowerBound, upperBound, numNgb, h):
     "Update the bounds for the smoothing length in the bisection algorithm"
-    if numNgb < DESNNGBS - NNGBDEV:
+    if numNgb < DESNNGBS - NNGBSDEV:
         lowerBound = max(lowerBound, h)
     else:
         if upperBound != LARGE_NUM:
@@ -301,7 +301,7 @@ def do_final_operations(NgbTree_ref, Workstack, Donestack, Left, Right, npleft):
             #do some postprocessing on density
             finish_density_update(particle, NgbTree)
             numNgb = NORM_COEFF * particle.Hsml**(NDIM) * particle.Rho / NgbTree.Mpart
-            if abs(numNgb-DESNNGBS) <= NNGBDEV:
+            if abs(numNgb-DESNNGBS) <= NNGBSDEV:
                 Donestack.append(particle)
             else:   
                 #check whether we're done

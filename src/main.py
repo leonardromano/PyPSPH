@@ -6,7 +6,7 @@ Created on Tue Oct  6 20:25:36 2020
 @author: leonard
 """
 import ray
-from sys import exit
+from sys import exit, stdout
 from time import time
 
 
@@ -51,6 +51,10 @@ def main():
         while j < 1:
             #first kick all active particles by the current active timestep
             dt = Dt/2**tb_lowest
+            #flush the output buffer
+            print("Current Time: %g, timestep %g"%((i + j) * Dt, dt))
+            stdout.flush()
+            
             Particles = Kick_and_drift(Particles, Problem, activeTimeBin, dt)
             
             #update the local clock to the next synchronization point and 

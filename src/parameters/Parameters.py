@@ -43,7 +43,7 @@ NDIM = 2
 Problem_Specifier = "Rayleigh-Taylor"
 #SPH parameters
 AdiabaticIndex     = 1.4          #adiabatic Index gamma P~rho^gamma
-Kernel             = "cubic"      #SPH Kernel function new Kernel options can be defined in Kernel.py
+Kernel             = "Wendland_C2"      #SPH Kernel function new Kernel options can be defined in Kernel.py
 Viscosity          = 1.           #Viscosity Parameter \alpha
 ViscositySoftening = 0.01         #Softening parameter to prevent blow up of viscosity force
 DESNNGBS = 16                     #Desired number of neighbors

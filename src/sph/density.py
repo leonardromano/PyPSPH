@@ -12,7 +12,7 @@ from sys import exit
 
 from src.parameters.Constants import NORM_COEFF, MAX_INT, LARGE_NUM
 from src.parameters.Parameters import NDIM, DESNNGBS, NNGBSDEV
-from src.sph.Kernel import kernel, wendland_bias_correction
+from src.sph.Kernel import kernel, bias_correction
 from src.data.int_conversion import get_distance_vector
 from src.data.parallel_utility import get_optimal_load
 from src.data.utility import norm
@@ -340,7 +340,7 @@ def evaluate_kernel(particle, NgbTree):
 def finish_density_update(particle, NgbTree):
     "some final postprocessing steps in density calculation"
     if particle.Rho > 0:
-        wendland_bias_correction(particle)
+        bias_correction(particle)
         #now if we have more than one neighbor update the dhsml factor
         if particle.VarHsmlFac > 0:
             particle.VarHsmlFac = NDIM * particle.Rho / particle.VarHsmlFac

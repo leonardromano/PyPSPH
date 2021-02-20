@@ -9,6 +9,7 @@ from numpy import zeros, ones, asarray, minimum, maximum, copy
 from math import ceil
 import ray
 from sys import exit
+from time import time
 
 from src.parameters.Constants import NORM_COEFF, MAX_INT, LARGE_NUM
 from src.parameters.Parameters import NDIM, DESNNGBS, NNGBSDEV
@@ -165,6 +166,13 @@ def densities_determine(NgbTree_ref, Workstack, npleft, ahead):
         
 ###############################################################################
 #main loop
+
+def update_sph_quantities(Particles, NgbTree_ref, Problem):
+    t0 = time()
+    Particles = density(Particles, NgbTree_ref, True)
+    t1 = time()
+    Problem.Timer["DENSITY"] += t1-t0
+    return Particles
 
 def density(Workstack, NgbTree_ref, ahead = False):
     "For each particle compute density, smoothing length and thermodynamic variables"

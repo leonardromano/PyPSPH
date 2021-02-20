@@ -7,7 +7,6 @@ Created on Sat Dec 19 15:21:28 2020
 """
 from numpy import sqrt
 
-from src.parameters.Constants import NCPU, MIN_LOAD_PER_CORE
 from src.parameters.Parameters import NDIM
 
 def factorial(n):
@@ -28,15 +27,3 @@ def norm(vector):
         r += component * component
     return sqrt(r)
 
-def get_optimal_load(total_load):
-    "Divide the load in as many reasonably big chunks as possible"
-    if total_load <= MIN_LOAD_PER_CORE:
-        return total_load, 1
-    
-    ncpu = NCPU
-    load = total_load//ncpu
-    while load < MIN_LOAD_PER_CORE and ncpu > 1:
-        ncpu -= 1
-        load = total_load//ncpu
-    
-    return load, ncpu

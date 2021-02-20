@@ -10,7 +10,8 @@ import ray
 from time import time
 
 from src.data.int_conversion import get_distance_vector
-from src.data.utility import dot, norm, get_optimal_load
+from src.data.parallel_utility import get_optimal_load
+from src.data.utility import dot, norm
 from src.parameters.Parameters import NDIM, Viscosity, AdiabaticIndex, \
     ViscositySoftening, ExternalForce, GravAcceleration, Floor, GravAxis
 from src.sph.density import get_minimum_distance_from_wall, add_ghost

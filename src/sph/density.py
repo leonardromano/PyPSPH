@@ -14,7 +14,8 @@ from src.parameters.Constants import NORM_COEFF, MAX_INT, LARGE_NUM
 from src.parameters.Parameters import NDIM, DESNNGBS, NNGBDEV
 from src.sph.Kernel import kernel, wendland_bias_correction
 from src.data.int_conversion import get_distance_vector
-from src.data.utility import norm, get_optimal_load
+from src.data.parallel_utility import get_optimal_load
+from src.data.utility import norm
 
 ###############################################################################
 #Parallel functions & classes

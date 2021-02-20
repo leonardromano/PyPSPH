@@ -11,7 +11,7 @@ import ray
 from sys import exit
 from time import time
 
-from src.data.utility import get_optimal_load
+from src.data.parallel_utility import get_optimal_load
 from src.parameters.Constants import Dt
 from src.parameters.Parameters import NTimebins
 

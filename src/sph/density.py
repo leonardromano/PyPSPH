@@ -36,7 +36,7 @@ def process_finalize(Particles, NgbTree, Left, Right):
     done = list()
     work_left = list()
     for particle in Particles:
-        i = particle.ID
+        i = particle.index
         #do some postprocessing on density
         finish_density_update(particle, NgbTree)
         numNgb = NORM_COEFF * particle.Hsml**(NDIM) * particle.Rho / NgbTree.Mpart
@@ -305,7 +305,7 @@ def do_final_operations(NgbTree_ref, Workstack, Donestack, Left, Right, npleft):
         NgbTree = ray.get(NgbTree_ref)
         Worklist = list()
         for particle in Workstack:
-            i = particle.ID
+            i = particle.index
             #do some postprocessing on density
             finish_density_update(particle, NgbTree)
             numNgb = NORM_COEFF * particle.Hsml**(NDIM) * particle.Rho / NgbTree.Mpart

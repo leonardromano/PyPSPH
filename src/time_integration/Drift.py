@@ -10,7 +10,7 @@ from time import time
 
 from src.data.int_conversion import convert_to_int_position
 from src.data.parallel_utility import get_optimal_load
-from src.Parameters.Constants import Dt, BITS_FOR_POSITIONS, MAX_INT, NCPU
+from src.parameters.Constants import Dt, BITS_FOR_POSITIONS, MAX_INT, NCPU
 from src.parameters.Parameters import NDIM
 
 ###############################################################################

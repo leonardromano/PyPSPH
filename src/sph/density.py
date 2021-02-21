@@ -195,13 +195,7 @@ def density(Workstack, NgbTree_ref, ahead = False):
         niter += 1
         
         #DEBUG
-        print("DENSITY: Loop %d. npleft = %d, npdone = %d"\
-              %(niter, npleft, len(Donestack)))
-        if npleft <= 652:
-            i = Workstack[0].index
-            print("Particle %d from Workstack..."%i)
-            print("rho = %g, Hsml = %g, Left = %g, Right = %g"\
-                  %(Workstack[0].Rho, Workstack[0].Hsml, Left[i], Right[i]))
+        print("DENSITY: Loop %d. npleft = %d..." %(niter, npleft))
         stdout.flush()
         
         if npleft <= 0:
@@ -233,7 +227,7 @@ def update_smoothing_length(lowerBound, upperBound, NumNgb, particle):
             ray.shutdown()
             exit()
             
-        if upperBound == 0 and lowerBound>0:
+        if upperBound == LARGE_NUM and lowerBound > 0:
             if abs(NumNgb - DESNNGBS) < 0.5*DESNNGBS:
                 fac = 1 - (NumNgb - DESNNGBS)/NumNgb/NDIM * particle.VarHsmlFac
                 if fac < 1.26:

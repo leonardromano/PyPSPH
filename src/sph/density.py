@@ -8,7 +8,7 @@ Created on Thu Nov  5 11:19:30 2020
 from numpy import zeros, ones, asarray, minimum, maximum, copy
 from math import ceil
 import ray
-from sys import exit
+from sys import exit, stdout
 from time import time
 
 from src.parameters.Constants import NORM_COEFF, MAX_INT, LARGE_NUM
@@ -191,6 +191,11 @@ def density(Workstack, NgbTree_ref, ahead = False):
                                                   Donestack, Left, Right, \
                                                   npleft)
         niter += 1
+        
+        #DEBUG
+        print("DENSITY: Loop %d. npleft = %d..."%(niter, npleft))
+        stdout.flush()
+        
         if npleft <= 0:
             break
     print("DENSITY: Finished after %d iterations."%niter)

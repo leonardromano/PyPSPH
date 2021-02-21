@@ -32,32 +32,32 @@ def main():
     #Read IC file specifying the problem and the particle data
     Particles, Problem = init.read_ic_file()
     
-    #flush the output buffer
+    #DEBUG
     print("Finished reading the ICs.")
     stdout.flush()
     
     #initialize particles and perform first force calculation
     NgbTree_ref = ray.put(ngbtree(Particles, Problem))
     
-    #flush the output buffer
+    #DEBUG
     print("Finished Tree-construction.")
     stdout.flush()
     
     Particles = init.sph_quantities(Particles, NgbTree_ref, Problem)
     
-    #flush the output buffer
+    #DEBUG
     print("Finished initializing SPH quantities.")
     stdout.flush()
     
     NgbTree_ref = update_Tp(Particles, NgbTree_ref, Problem)
     
-    #flush the output buffer
+    #DEBUG
     print("Finished Tp update.")
     stdout.flush()
     
     Particles = force_step(Particles, NgbTree_ref, Problem, 0)
     
-    #flush the output buffer
+    #DEBUG
     print("Finished force computation.")
     stdout.flush()
     

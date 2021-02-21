@@ -8,6 +8,7 @@ Created on Tue Oct  6 20:52:07 2020
 import h5py
 from numpy import asarray
 import ray
+from sys import stdout
 from time import time
 
 from src.parameters.Constants import BITS_FOR_POSITIONS, NORM_COEFF, NCPU
@@ -80,6 +81,10 @@ def sph_quantities(particles, NgbTree_ref, Problem):
     "This function initializes the sph properties of the particles"
     t0 = time()
     particles = initial_guess_hsml(particles, NgbTree_ref)
+    
+    #DEBUG
+    print("Finished initial guess.")
+    stdout.flush()
     #compute density, smoothing length and thermodynamic quantities and 
     #finds neighbors
     particles = density(particles, NgbTree_ref)

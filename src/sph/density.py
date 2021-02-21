@@ -22,10 +22,10 @@ from src.data.utility import norm
 #Parallel functions & classes
 
 @ray.remote(num_cpus=1)
-def process_treewalk(Particles, NgbTree, ahead):
+def process_treewalk(Particles, NgbTree):
     "this function does the heavy lifting for the parallelization"
     for particle in Particles:
-        walk_tree(particle, NgbTree, ahead)
+        walk_tree(particle, NgbTree)
     return Particles
 
 @ray.remote(num_cpus=1)
@@ -138,7 +138,7 @@ def sph_density_interact(particle, no, no_type, NgbTree):
         if evaluate_particle_node_opening_criterion(particle, node, NgbTree):
             sph_density_open_node(particle, node, NgbTree)
 
-def densities_determine(NgbTree_ref, Workstack, npleft, ahead):
+def densities_determine(NgbTree_ref, Workstack, npleft):
     """
     for each target walk the tree to determine the neighbors and then 
     compute density and thermodynamic quantities
@@ -149,9 +149,9 @@ def densities_determine(NgbTree_ref, Workstack, npleft, ahead):
     if ncpu > 1:
         #split work evenly among processes
         result = [process_treewalk.remote(Workstack[i * load:(i+1) * load], \
-                                          NgbTree_ref, ahead) for i in range(ncpu-1)]
+                                          NgbTree_ref) for i in range(ncpu-1)]
         result.append(process_treewalk.remote(Workstack[(ncpu-1) * load:], \
-                                              NgbTree_ref, ahead))
+                                              NgbTree_ref))
     
         Worklist = list()
         while len(result):
@@ -162,7 +162,7 @@ def densities_determine(NgbTree_ref, Workstack, npleft, ahead):
         NgbTree = ray.get(NgbTree_ref)
         #do the remaining work locally
         for particle in Workstack:
-            walk_tree(particle, NgbTree, ahead)
+            walk_tree(particle, NgbTree)
             
     return Workstack
         

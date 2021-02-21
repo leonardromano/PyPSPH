@@ -82,9 +82,9 @@ def Kick(Particles, Problem, activeTimeBin):
     done = list()
     for particle in Particles:
         if particle.timeBin >= activeTimeBin:
-            active.append(Particles)
+            active.append(particle)
         else:
-            done.append(Particles)
+            done.append(particle)
     
     load, ncpu = get_optimal_load(len(active))
     t0 = time()

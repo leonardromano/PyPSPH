@@ -332,7 +332,7 @@ def do_final_operations(NgbTree_ref, Workstack, Donestack, Left, Right, \
                 #need to redo this one
                 Left[i], Right[i] = update_bounds(Left[i], Right[i], numNgb, \
                                               particle.Hsml)
-                update_smoothing_length(Left[i], Right[i], particle)
+                update_smoothing_length(Left[i], Right[i], numNgb, particle)
                 Worklist.append(particle)
                 
     npleft = len(Worklist)

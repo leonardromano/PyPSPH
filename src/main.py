@@ -32,41 +32,15 @@ def main():
     #Read IC file specifying the problem and the particle data
     Particles, Problem = init.read_ic_file()
     
-    #DEBUG
-    print("Finished reading the ICs.")
-    stdout.flush()
-    
-    #initialize particles and perform first force calculation
+    #initialize neighbor tree and perform first force calculation
     NgbTree_ref = ray.put(ngbtree(Particles, Problem))
-    
-    #DEBUG
-    print("Finished Tree-construction.")
-    stdout.flush()
-    
-    Particles = init.sph_quantities(Particles, NgbTree_ref, Problem)
-    
-    #DEBUG
-    print("Finished initializing SPH quantities.")
-    stdout.flush()
-    
+    Particles = init.sph_quantities(Particles, NgbTree_ref, Problem)    
     NgbTree_ref = update_Tp(Particles, NgbTree_ref, Problem)
-    
-    #DEBUG
-    print("Finished Tp update.")
-    stdout.flush()
-    
     Particles = force_step(Particles, NgbTree_ref, Problem, 0)
-    
-    #DEBUG
-    print("Finished force computation.")
-    stdout.flush()
     
     #assign particles to time bins
     Particles, tb_lowest = assign_timestep_classes(Particles, 0, Problem)
-    
-    #flush the output buffer
-    print("Finished initial timebin assignment.")
-    stdout.flush()
+
     #loop over all timesteps
     for i in range(NTimesteps):
         #Write a snapshot if required

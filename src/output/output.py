@@ -47,9 +47,9 @@ def write_data(Particles, label, Time, Problem):
         positions[i]  += particle.position * Problem.FacIntToCoord
         velocities[i] += particle.velocity
         entropies[i]  += particle.entropy
-        densities[i]  += particle.density
+        densities[i]  += particle.Rho
         pressures[i]  += particle.pressure
-        hsml[i]       += particle.hsml
+        hsml[i]       += particle.Hsml
     f.create_dataset("PartData/IDs", data = IDs,  dtype = "u4")
     f.create_dataset("PartData/Coordinates", data = positions, dtype = "f4")
     f.create_dataset("PartData/Velocity", data = velocities, dtype = "f4")

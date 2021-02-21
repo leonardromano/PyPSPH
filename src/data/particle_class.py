@@ -50,7 +50,6 @@ class particle:
         cmax = 0
         for no in self.neighbors:
             ngb = NgbTree.Tp[no]
-            print(ngb.csound)
             if ngb.csound > cmax:
                 cmax = ngb.csound
         courantTimestep = CourantParameter * 2 * self.Hsml/(self.csound + cmax)

@@ -194,13 +194,12 @@ def density(Workstack, NgbTree_ref, ahead = False):
                                                   npleft, ahead)
         niter += 1
         
-        #DEBUG
         print("DENSITY: Loop %d. npleft = %d..." %(niter, npleft))
-        stdout.flush()
         
         if npleft <= 0:
             break
-    print("DENSITY: Finished after %d iterations."%niter)
+    print("DENSITY: Finished after %d iterations.\n"%niter)
+    stdout.flush()
     return Donestack
 
 ###############################################################################

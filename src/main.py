@@ -55,7 +55,8 @@ def main():
             #first kick all active particles by the current active timestep
             dt = Dt/2**tb_lowest
             #flush the output buffer
-            print("Current Time: %g, timestep %g"%((i + j) * Dt, dt))
+            print("Highest active Timebin: %d, Time: %g, timestep %g"\
+                  %(activeTimeBin, (i + j) * Dt, dt))
             stdout.flush()
             
             Particles = Kick_and_Drift(Particles, Problem, activeTimeBin, dt)

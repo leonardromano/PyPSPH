@@ -17,7 +17,7 @@ def write_data(Particles, label, Time, Problem):
     "writes all the particle data in a hdf5 file."
     t0 = time()
     
-    f = h5py.File("%s/sph_%d.hdf5"%(output,label), "w")
+    f = h5py.File("%s/sph_%03d.hdf5"%(output,label), "w")
     #first dump all the header info
     header = f.create_group("Header")
     Npart = len(Particles)

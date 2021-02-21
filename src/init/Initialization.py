@@ -8,7 +8,6 @@ Created on Tue Oct  6 20:52:07 2020
 import h5py
 from numpy import asarray
 import ray
-from sys import stdout
 from time import time
 
 from src.parameters.Constants import BITS_FOR_POSITIONS, NORM_COEFF, NCPU
@@ -59,9 +58,10 @@ def read_ic_file():
     file = h5py.File(ICfile + ".hdf5", "r")
     header = file["Header"].attrs
     Problem.Mpart = header["Mpart"]
-    Problem.BoxSize = header["Boxsize"]
+    Problem.Boxsize = header["Boxsize"]
     Problem.Periodic = header["Periodic"]
     Problem.update_int_conversion()
+    
     positions  = asarray(file["PartData/Coordinates"])
     velocities = asarray(file["PartData/Velocity"]) 
     entropies  = asarray(file["PartData/Entropy"])
@@ -81,10 +81,6 @@ def sph_quantities(particles, NgbTree_ref, Problem):
     "This function initializes the sph properties of the particles"
     t0 = time()
     particles = initial_guess_hsml(particles, NgbTree_ref)
-    
-    #DEBUG
-    print("Finished initial guess.")
-    stdout.flush()
     #compute density, smoothing length and thermodynamic quantities and 
     #finds neighbors
     particles = density(particles, NgbTree_ref)

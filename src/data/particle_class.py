@@ -50,8 +50,9 @@ class particle:
         cmax = 0
         for no in self.neighbors:
             ngb = NgbTree.Tp[no]
-            if ngb[0].csound > cmax:
-                cmax = ngb[0].csound
+            print(ngb.csound)
+            if ngb.csound > cmax:
+                cmax = ngb.csound
         courantTimestep = CourantParameter * 2 * self.Hsml/(self.csound + cmax)
         if norm(self.acceleration) > 0:
             kinematicTimestep = sqrt(2 * TimestepLimiter * self.Hsml / \

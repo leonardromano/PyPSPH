@@ -197,6 +197,11 @@ def density(Workstack, NgbTree_ref, ahead = False):
         #DEBUG
         print("DENSITY: Loop %d. npleft = %d, npdone = %d"\
               %(niter, npleft, len(Donestack)))
+        if npleft <= 652:
+            i = Workstack[0].index
+            print("Particle %d from Workstack..."%i)
+            print("rho = %g, Hsml = %g, Left = %g, Right = %g"\
+                  %(Workstack[0].Rho, Workstack[0].Hsml, Left[i], Right[i]))
         stdout.flush()
         
         if npleft <= 0:

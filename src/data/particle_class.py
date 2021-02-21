@@ -38,10 +38,10 @@ class particle:
         self.CloseToWall = 0
         
     def update_pressure(self, ahead):
-        if ahead == False:
-            self.pressure = self.entropy * self.Rho**(AdiabaticIndex)
-        else:
+        if ahead:
             self.pressure = self.entropy_ahead * self.Rho**(AdiabaticIndex)
+        else:
+            self.pressure = self.entropy * self.Rho**(AdiabaticIndex)            
         
     def update_soundspeed(self):
         self.csound = sqrt(AdiabaticIndex * self.pressure/self.Rho)

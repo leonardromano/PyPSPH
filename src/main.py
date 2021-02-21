@@ -31,13 +31,42 @@ def main():
     print("Starting SPH calculation using %d cores..."%NCPU)
     #Read IC file specifying the problem and the particle data
     Particles, Problem = init.read_ic_file()
+    
+    #flush the output buffer
+    print("Finished reading the ICs.")
+    stdout.flush()
+    
     #initialize particles and perform first force calculation
     NgbTree_ref = ray.put(ngbtree(Particles, Problem))
+    
+    #flush the output buffer
+    print("Finished Tree-construction.")
+    stdout.flush()
+    
     Particles = init.sph_quantities(Particles, NgbTree_ref, Problem)
+    
+    #flush the output buffer
+    print("Finished initializing SPH quantities.")
+    stdout.flush()
+    
     NgbTree_ref = update_Tp(Particles, NgbTree_ref, Problem)
+    
+    #flush the output buffer
+    print("Finished Tp update.")
+    stdout.flush()
+    
     Particles = force_step(Particles, NgbTree_ref, Problem, 0)
+    
+    #flush the output buffer
+    print("Finished force computation.")
+    stdout.flush()
+    
     #assign particles to time bins
     Particles, tb_lowest = assign_timestep_classes(Particles, 0, Problem)
+    
+    #flush the output buffer
+    print("Finished initial timebin assignment.")
+    stdout.flush()
     #loop over all timesteps
     for i in range(NTimesteps):
         #Write a snapshot if required

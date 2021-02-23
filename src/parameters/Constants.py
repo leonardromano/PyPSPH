@@ -54,23 +54,19 @@ else:
     
 #Kernel normalisation constant
 if Kernel == "cubic":
-    if NDIM == 1:
-        NORM_FAC = 4/3
-    elif NDIM % 2 == 0:
-        NORM_FAC = factorial(NDIM + 3) * factorial(NDIM//2 - 1) * pi**(-NDIM//2)/12\
-            /factorial(NDIM-1)/(2 - 1/(1 << NDIM))
-    else:
-        NORM_FAC = factorial(NDIM + 3) * pi**(-(NDIM-1)//2) / 3/(NDIM-1)/\
-              factorial((NDIM-1)//2 - 1)/((1 << (NDIM+1)) - 1)
+    NORM_FAC = factorial(NDIM + 3, NDIM + 1) / \
+        (12 * NORM_COEFF * (1 - 2**(-(NDIM + 1))))
 elif Kernel == "Wendland_C2":
     if NDIM == 1:
         NORM_FAC = 5/4
-    elif NDIM % 2 == 0:
-        NORM_FAC = factorial(NDIM + 5) * NDIM * factorial(NDIM//2 - 1) * \
-                   pi**(-NDIM//2) / factorial(NDIM + 1) / 240
     else:
-        NORM_FAC = factorial(NDIM + 5) * (4 * pi)**(-(NDIM-1)//2) / 120 / \
-                   factorial((NDIM-1)//2 - 1) / (NDIM**2 - 1)
+        NORM_FAC = factorial(NDIM + 5, NDIM + 2) / (120 * NORM_COEFF)
+elif Kernel == "Wendland_C4":
+    if NDIM == 1:
+        NORM_FAC = 3/2
+    else:
+        NORM_FAC = 3 * (NDIM + 2) * factorial(NDIM + 8, NDIM + 4) / \
+            (NORM_COEFF * 40320)
 else:
     print("Kernel function not defined!")
     exit()

@@ -57,6 +57,31 @@ elif Kernel == "Wendland_C2":
                     return NORM_FAC * (1-x)**4 * (1 + 4 * x) * h**(-NDIM)
                 else:
                     return 0 
+elif Kernel == "Wendland_C4":
+    if NDIM == 1:
+        def kernel(x, h, derivative = False):
+            if derivative:
+                if x < 1:
+                    return -14 * NORM_FAC * x * (1-x)**4 * (1 + 4 * x) / h**2
+                else:
+                    return 0
+            else:
+                if x < 1:
+                    return NORM_FAC * (1-x)**5 * (1 + 5 * x + 8 * x**2) /h
+                else:
+                    return 0
+    else:
+        def kernel(x, h, derivative = False):
+            if derivative:
+                if x < 1:
+                    return -56/3 * NORM_FAC * x * (1-x)**5 * (1 + 5 * x) * h**(-(NDIM+1))
+                else:
+                    return 0
+            else:
+                if x < 1:
+                    return NORM_FAC * (1-x)**6 * (1 + 6 * x + 35/3 * x**2) * h**(-NDIM)
+                else:
+                    return 0 
 else:
     print("Kernel function not defined!")
     exit()

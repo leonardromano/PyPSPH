@@ -50,7 +50,6 @@ CourantParameter = 0.3            #Courant parameter
 TimestepLimiter  = 0.01          #Limiter for kinematic timestep
 #external force (gravity)
 ExternalForce = True              #Enable external forces true/false
-Floor = True                      #If true particles touching the floor don't experience gravity
 GravAxis = 1                      #Axis along which gravitational field lies
 GravAcceleration = 0.5            #magnitude of external force
 ##############################################################################

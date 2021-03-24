@@ -13,8 +13,7 @@ from src.data.int_conversion import get_distance_vector
 from src.data.parallel_utility import get_optimal_load
 from src.data.utility import dot, norm
 from src.parameters.Parameters import NDIM, Viscosity, AdiabaticIndex, \
-    ViscositySoftening, ExternalForce, GravAcceleration, Floor, GravAxis
-from src.sph.density import get_minimum_distance_from_wall, add_ghost
+    ViscositySoftening, ExternalForce, GravAcceleration, GravAxis
 from src.sph.Kernel import kernel
 
 ###############################################################################
@@ -37,8 +36,6 @@ def compute_force(particle, NgbTree, ahead):
     particle.entropyChange = 0
     #prepare boundary treatment
     if particle.CloseToWall:
-        #min_dist_from_wall = get_minimum_distance_from_wall(particle, NgbTree)
-        #update the timestep criterion and free the memory occupied by the neighbor list
         particle.update_timestep_criterion(NgbTree)
         particle.neighbors = list()
         return
@@ -49,9 +46,6 @@ def compute_force(particle, NgbTree, ahead):
         if ngb.index != particle.index:
             #we will need these multiple times
             dist = get_distance_vector(particle.position, ngb.position, NgbTree)
-            #if particle.CloseToWall and add_ghost(particle, ngb, dist, min_dist_from_wall, NgbTree):
-            #    #particle and ghost contributions cancel out
-            #    continue
             r = norm(dist)
             dkern_i = dist/r * kernel(r/particle.Hsml, particle.Hsml, True)
             dkern_j = dist/r * kernel(r/ngb.Hsml, ngb.Hsml, True)
@@ -69,13 +63,10 @@ def compute_force(particle, NgbTree, ahead):
             dkern_j *= ngb.VarHsmlFac * ngb.pressure/ngb.Rho**2
             particle.acceleration -= (dkern_i +dkern_j)
     particle.entropyChange *= (AdiabaticIndex - 1)/2/particle.Rho**(AdiabaticIndex - 1)
-    particle.acceleration  *= NgbTree.Mpart 
+    particle.acceleration  *= NgbTree.Mpart
+    
+    #add contribution from external force (currently only constant gravity)
     if ExternalForce:
-        #height = particle.position[GravAxis] * NgbTree.FacIntToCoord[GravAxis]
-        #check if the gravitational pull is countered by the normal force
-        #flag = Floor and height < particle.Hsml
-        #if not flag:
-            #particle is not touching the ground: apply gravity
         particle.acceleration[GravAxis] -= GravAcceleration
     #update the timestep criterion and free the memory occupied by the neighbor list
     particle.update_timestep_criterion(NgbTree)

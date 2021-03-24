@@ -8,15 +8,13 @@ Created on Fri Feb 12 17:08:32 2021
 from numpy import ones
 
 from src.parameters.Constants import BITS_FOR_POSITIONS
-from src.parameters.Parameters import NDIM   
+from src.parameters.Parameters import NDIM
 
 class problem():
     def __init__(self):
-        self.name          = ""
         self.Mpart         = 0.
         self.Boxsize       = ones(NDIM)
         self.FacIntToCoord = self.Boxsize/(1 << BITS_FOR_POSITIONS)
-        self.Rho_Max       = 1.
         self.Periodic      = ones(NDIM, dtype = int)
         self.Timer         = {"INIT" : 0,
                               "TREE": 0,

@@ -87,6 +87,19 @@ else:
     exit()
 
 def bias_correction(particle):
-    if NDIM == 3 and Kernel == "Wendland_C2":
-        particle.Rho -= 0.0294 * (DESNNGBS * 0.01)**(-0.977) \
-                     * NORM_FAC * particle.Hsml**(-NDIM)
+    "correct for density bias according to Dehn & Aly (2012)"
+    epsilon = 0
+    if Kernel == "Wendland_C2":
+        if NDIM == 3:
+            epsilon = 0.0294 * (DESNNGBS * 0.01)**(-0.977)
+        elif NDIM == 2:
+            epsilon = 0.1270 * (DESNNGBS/16)**(-1.22)
+    elif Kernel == "Wendland_C2":
+        if NDIM == 2:
+            epsilon = 0.1528 * (DESNNGBS/16)**(-1.66)
+    elif Kernel == "cubic":
+        if NDIM == 2:
+            epsilon = 0.0654 * (DESNNGBS/16)**(-1.29)
+    if epsilon != 0:
+        particle.Rho -= epsilon * NORM_FAC * particle.Hsml**(-NDIM)
+                     

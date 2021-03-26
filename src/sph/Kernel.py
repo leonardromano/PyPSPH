@@ -93,13 +93,13 @@ def bias_correction(particle):
         if NDIM == 3:
             epsilon = 0.0294 * (DESNNGBS * 0.01)**(-0.977)
         elif NDIM == 2:
-            epsilon = 0.1270 * (DESNNGBS/16)**(-1.22)
-    elif Kernel == "Wendland_C2":
+            epsilon = 0.0932 * (DESNNGBS/16)**(-1.48)
+    elif Kernel == "Wendland_C4":
         if NDIM == 2:
-            epsilon = 0.1528 * (DESNNGBS/16)**(-1.66)
+            epsilon = 0.1075 * (DESNNGBS/16)**(-1.78)
     elif Kernel == "cubic":
         if NDIM == 2:
-            epsilon = 0.0654 * (DESNNGBS/16)**(-1.29)
+            epsilon = 0.0340 * (DESNNGBS/16)**(-1.91)
     if epsilon != 0:
         particle.Rho -= epsilon * NORM_FAC * particle.Hsml**(-NDIM)
                      

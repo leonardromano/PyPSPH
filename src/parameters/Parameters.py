@@ -30,8 +30,8 @@ OutputFrequency = 8
 #Time parameters
 ##############################################################################
 InitialTime = 0                    #Starting Time
-FinalTime   = 0.5                    #Final Time
-NTimesteps  = 128                  #Time refinement
+FinalTime   = 5.0                  #Final Time
+NTimesteps  = 1000                 #Time refinement
 NTimebins   = 16                   #Maximum depth of timestep hierarchy
 ##############################################################################
 

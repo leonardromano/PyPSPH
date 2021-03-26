@@ -36,9 +36,8 @@ class particle:
         self.neighbors = list()
         self.timeBin = 0
         self.CloseToWall = 0
-        if particle.position[1] < 0.1 * MAX_INT or \
-            particle.position[1] > 0.9 * MAX_INT:
-                self.CloseToWall = 1
+        if self.position[1] < 0.1 * MAX_INT or self.position[1] > 0.9 * MAX_INT:
+            self.CloseToWall = 1
         
     def update_pressure(self, ahead):
         if ahead:

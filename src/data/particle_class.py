@@ -8,7 +8,7 @@ Created on Tue Oct  6 20:15:30 2020
 from numpy import sqrt, zeros
 
 from src.data.utility import norm
-from src.parameters.Constants import Dt
+from src.parameters.Constants import Dt, MAX_INT
 from src.parameters.Parameters import AdiabaticIndex, CourantParameter, \
     TimestepLimiter, NDIM
 
@@ -36,6 +36,9 @@ class particle:
         self.neighbors = list()
         self.timeBin = 0
         self.CloseToWall = 0
+        if particle.position[1] < 0.1 * MAX_INT or \
+            particle.position[1] > 0.9 * MAX_INT:
+                self.CloseToWall = 1
         
     def update_pressure(self, ahead):
         if ahead:

@@ -249,15 +249,6 @@ def update_smoothing_length(lowerBound, upperBound, NumNgb, particle):
 ###############################################################################
 #ghost particle related functions    
 
-def close_to_wall(particle, NgbTree):
-    for i in range(NDIM):
-        if not NgbTree.Periodic[i]:
-            dist_from_wall = get_distance_from_wall(particle, NgbTree, i)
-            if particle.Hsml > dist_from_wall:
-                particle.CloseToWall = 1
-                return
-    particle.CloseToWall = 0
-
 def add_ghost(particle, ngb, dist, min_dist_from_wall, NgbTree):
     for i in range(NDIM):
         if not NgbTree.Periodic[i]:
@@ -339,7 +330,6 @@ def do_final_operations(NgbTree_ref, Workstack, Donestack, Left, Right, \
 
 def evaluate_kernel(particle, NgbTree):
     "Perform the neighbor sum to compute density and SPH correction factor"
-    close_to_wall(particle, NgbTree)
     if particle.CloseToWall:
         min_dist_from_wall = get_minimum_distance_from_wall(particle, NgbTree)
     for n in particle.neighbors:

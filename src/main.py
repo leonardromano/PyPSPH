@@ -41,6 +41,7 @@ def main():
     #assign particles to time bins
     Particles, tb_lowest = assign_timestep_classes(Particles, 0, Problem)
 
+    NumStep = 0
     #loop over all timesteps
     for i in range(NTimesteps):
         #Write a snapshot if required
@@ -55,8 +56,8 @@ def main():
             #first kick all active particles by the current active timestep
             dt = Dt/2**tb_lowest
             #flush the output buffer
-            print("Highest active Timebin: %d, Time: %g, timestep %g"\
-                  %(activeTimeBin, (i + j) * Dt, dt))
+            print("Step %d: Highest active Timebin: %d, Time: %g, timestep %g"\
+                  %(NumStep, activeTimeBin, (i + j) * Dt, dt))
             stdout.flush()
             
             Particles = Kick_and_Drift(Particles, Problem, activeTimeBin, dt)
@@ -79,6 +80,7 @@ def main():
             #determine the new smallest timestep
             Particles, tb_lowest = assign_timestep_classes(Particles, activeTimeBin, \
                                                              Problem)
+            NumStep += 1
     #after we're done we want to write the final results in a snapshot
     write_data(Particles, NTimesteps//OutputFrequency, FinalTime, Problem)
     t1 = time()

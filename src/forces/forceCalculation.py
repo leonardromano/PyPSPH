@@ -36,7 +36,6 @@ def compute_force(particle, NgbTree, ahead):
     particle.entropyChange = 0
     #prepare boundary treatment
     if particle.CloseToWall:
-        particle.update_timestep_criterion(NgbTree)
         particle.neighbors = list()
         return
     
